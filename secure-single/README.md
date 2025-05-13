@@ -1,9 +1,9 @@
 # Setup KurrentDB as secure single node
 
-This was built for `Ubuntu-24.04` so your milage may vary.
+This was built for `Ubuntu-24.04` so your milage may vary. There are some notes for Microsoft and Apple users for installing certificates.
 
-Run securely from the start. This differs from the [setup provided by Kurrent](https://github.com/kurrent-io/KurrentDB/blob/master/docker-compose.yml). The folder structure differs, and file permissions are tighten a tad bit.
-
+Run securely from the start. This differs from the [setup provided by Kurrent](https://github.com/kurrent-io/KurrentDB/blob/master/docker-compose.yml). 
+The folder structure differs, and file permissions are tighten a tad bit, and a path to changing the default admin and ops passwords is ready to go.
 
 Here's how the folder structure should look after completing the setup.
 
@@ -55,6 +55,34 @@ rmdir "$(pwd)/.kurrent/node1/ca"
 sudo cp "$(pwd)/.kurrent/root/ca/ca.crt" /usr/local/share/ca-certificates
 sudo update-ca-certificates
 ```
+
+---
+
+### 🪟 For Windows Users
+
+Use PowerShell to import the certificate.
+
+```powershell
+Import-Certificate -FilePath .kurrent/root/ca/ca.crt -CertStoreLocation Cert:\LocalMachine\Root
+```
+
+---
+
+### 🍎 For OSX Users
+
+I've never been a Mac user, so this very well could be flat out wrong. 
+
+```
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain .kurrent/root/ca/ca.crt
+```
+
+⚠️ If you're running on Apple Silicon, you'll likely need to use the ARM image which is still experimental. 
+
+```
+kurrentplatform/kurrentdb:25.0.0-experimental-arm64-8.0-jammy
+```
+
+---
 
 #### Configure browser 
 
