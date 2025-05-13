@@ -1,0 +1,2 @@
+# Ignore everything except entrypoint.sh, was explicitly added to git
+.kurrent/

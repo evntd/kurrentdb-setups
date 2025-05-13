@@ -1,0 +1,45 @@
+services:
+  eventstore:
+    image: kurrentplatform/kurrentdb:25.0.0-x64-8.0-bookworm-slim
+    entrypoint: ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
+    environment:
+      KURRENTDB_CERTIFICATE_FILE: /etc/kurrentdb/certs/node.crt
+      KURRENTDB_CERTIFICATE_PRIVATE_KEY_FILE: /etc/kurrentdb/certs/node.key
+      KURRENTDB_TRUSTED_ROOT_CERTIFICATES_PATH: /etc/kurrentdb/ca
+      KURRENTDB_ADVERTISE_HOST_TO_CLIENT_AS: 127.0.0.1
+      KURRENTDB_ADVERTISE_NODE_PORT_TO_CLIENT_AS: 2113
+      KURRENTDB_NODE_PORT: 2113
+      KURRENTDB_DISCOVER_VIA_DNS: false
+      KURRENTDB_RUN_PROJECTIONS: All
+      KURRENTDB_START_STANDARD_PROJECTIONS: true
+      KURRENTDB_ENABLE_ATOM_PUB_OVER_HTTP: true
+    healthcheck:
+      test: 
+        [
+          "CMD-SHELL",
+          "curl --fail https://eventstore:2113/health/live || exit 1"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
+    ports:
+      - 2113:2113
+    restart: always
+    secrets:
+      - kurrentdb_default_admin_password
+      - kurrentdb_default_ops_password
+    volumes:
+      - "./.kurrent/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro"
+      - "./.kurrent/root/ca:/etc/kurrentdb/ca:ro"
+      - "./.kurrent/node1/cert:/etc/kurrentdb/certs:ro"
+      - "./.kurrent/node1/data:/var/lib/kurrentdb"
+      - "./.kurrent/node1/logs:/var/log/kurrentdb"
+
+secrets:
+  kurrentdb_default_admin_password:
+    file: ./.kurrent/secrets/default_admin_password
+    
+  kurrentdb_default_ops_password:
+    file: ./.kurrent/secrets/default_ops_password
+    
