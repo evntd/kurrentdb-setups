@@ -2,7 +2,7 @@
 
 This was built for `Ubuntu-24.04` so your milage may vary.
 
-Run securely from the start. This differs from the [setup provided by Kurrent](https://github.com/kurrent-io/KurrentDB/blob/master/docker-compose.yml).The folder structure differs, and file permissions are tighten a tad bit.
+Run securely from the start. This differs from the [setup provided by Kurrent](https://github.com/kurrent-io/KurrentDB/blob/master/docker-compose.yml). The folder structure differs, and file permissions are tighten a tad bit.
 
 
 Here's how the folder structure should look after completing the setup.
@@ -51,7 +51,7 @@ docker run --rm -u 1000:1000 -v "$(pwd)/.kurrent/node1:/certs" -v "$(pwd)/.kurre
 rmdir "$(pwd)/.kurrent/node1/ca"
       
 # Update the trusted certificates on the local machine
-# This is needed to run Fact.WebApi, otherwise the local machine rejects the certificate KurrentDB presents
+# This is needed to run YOUR-PROJECT, otherwise the local machine rejects the certificate KurrentDB presents
 sudo cp "$(pwd)/.kurrent/root/ca/ca.crt" /usr/local/share/ca-certificates
 sudo update-ca-certificates
 ```
