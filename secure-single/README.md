@@ -1,6 +1,6 @@
 # Setup KurrentDB as secure single node
 
-This built for `Ubuntu-24.04` so your milage may vary.
+This was built for `Ubuntu-24.04` so your milage may vary.
 
 Run securely from the start. This differs from the [setup provided by Kurrent](https://github.com/kurrent-io/KurrentDB/blob/master/docker-compose.yml).The folder structure differs, and file permissions are tighten a tad bit.
 
@@ -67,7 +67,7 @@ The default password for both `admin` and `ops` users is `changeit`. This is a p
 should be done about this.
 
 Put your desired initial passwords in `.kurrent/secrets/default_admin_password` and `.kurrent/secrets/default_ops_password`.
-These paths have been configured as secrets within docker compose, and have are ignored  
+These paths have been configured as secrets within docker compose, and are ignored by git.
 
 ```shell
 echo "changeit_again!" > .kurrent/secrets/default_admin_password
