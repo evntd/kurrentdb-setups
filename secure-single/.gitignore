@@ -1,2 +1,2 @@
-# Ignore everything except entrypoint.sh, was explicitly added to git
+# Ignore everything except entrypoint.sh, which was explicitly added to git
 .kurrent/
