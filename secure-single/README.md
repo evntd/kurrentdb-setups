@@ -41,7 +41,8 @@ docker run --rm -u 1000:1000 -v "$(pwd)/.kurrent/root:/certs" --entrypoint bash 
       && chmod 644 ca/ca.crt"
 
 # Generate the certificate and private key for node1
-docker run --rm -e PROVISION_DIRECTORIES="1000:1000:0755:/tmp/node1" -v "$(pwd)/.kurrent/node1:/tmp/node1" hasnat/volumes-provisioner    
+docker run --rm -e PROVISION_DIRECTORIES="1000:1000:0755:/tmp/node1" -v "$(pwd)/.kurrent/node1:/tmp/node1" hasnat/volumes-provisioner
+docker run --rm -e PROVISION_DIRECTORIES="1000:1000:0700:/tmp/node1/data /tmp/node1/logs" -v "$(pwd)/.kurrent/node1:/tmp/node1" hasnat/volumes-provisioner
 docker run --rm -u 1000:1000 -v "$(pwd)/.kurrent/node1:/certs" -v "$(pwd)/.kurrent/root/ca:/certs/ca" --entrypoint bash eventstore/es-gencert-cli:1.0.2 \
   -c "mkdir -p /certs && cd /certs && es-gencert-cli create-node -out ./cert -ip-addresses 127.0.0.1,172.30.240.11 -dns-names localhost \
       && chmod 600 cert/node.key \
