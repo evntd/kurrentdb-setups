@@ -159,13 +159,22 @@ services:
       ###################
       # Logging Options
       ###################
+      # Disable logging entirely
       KURRENTDB_DISABLE_LOG_FILE: false
+      # Directory path where log files are written
       KURRENTDB_LOG: /var/log/kurrentdb
+      # Location of file which configures logging levels of various components.
+      # The file is expected to compatible with Serilog.Settings.Configuration or the built-in Microsoft Logging
       KURRENTDB_LOG_CONFIG: logconfig.json 
-      KURRENTDB_LOG_CONSOLE_FORMAT: Plain 
-      KURRENTDB_LOG_FILE_INTERVAL: Day
+      # Format of the log files; Plain or Json
+      KURRENTDB_LOG_CONSOLE_FORMAT: Plain       
+      # The frequency of log rotation
+      KURRENTDB_LOG_FILE_INTERVAL: Day      
+      # Number of log files kept on disk
       KURRENTDB_LOG_FILE_RETENTION_COUNT: 31
+      # The maximum size of each log file, in bytes. 
       KURRENTDB_LOG_FILE_SIZE: 1073741824
+      # The level of log details; Default, Verbose|Trace, Debug, Information, Warning, Error, Fatal|Critical|None
       KURRENTDB_LOG_LEVEL: Default
 
       ######################
